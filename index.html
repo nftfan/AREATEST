@@ -84,12 +84,61 @@
         .popup-content button:hover {
             background: #0056b3; /* Darker shade on hover */
         }
+		
+		.wallet-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#connectWalletButton {
+    display: flex;
+    align-items: center;
+    background-color: #ffd662; /* Dark button background */
+    color: #000000;
+    padding: 10px 20px;
+    font-size: 14px; /* Smaller font size */
+    border: 1px solid #444; /* Subtle border */
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+    min-width: 150px;
+}
+
+#connectWalletButton img {
+    position: absolute;
+    left: 10px;
+    width: 24px;
+    height: 24px;
+}
+
+#connectWalletButton:hover {
+    background-color: #444; /* Slightly lighter dark */
+    transform: scale(1.02);
+}
+
+#walletAddress {
+    font-size: 12px;
+    color: #e0e0e0;
+    margin: 5px 0;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
     </style>
 </head>
 <body>
     <div id="search-container">
         <input type="text" id="search-box" placeholder="Enter wallet address" />
         <button id="search-button">Search</button>
+		<button id="connectWalletButton">
+                   
+                    <strong>Connect Wallet</strong>
+                </button>
     </div>
     <div id="map"></div>
 
@@ -501,3 +550,4 @@ function handleConnectionError(error) {
 	</script>
 </body>
 </html>
+
