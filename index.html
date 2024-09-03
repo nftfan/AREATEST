@@ -425,26 +425,22 @@ function saveRectangleToDynamoDB(solfanKey, wallet, bounds, tokenID) {
     let contract;
     let signer;
 
-    async function connectWallet() {
+   async function connectWallet() {
     if (window.ethereum && window.ethereum.isMetaMask) {
         try {
+            // Request account access if needed
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+
             // Initialize provider and signer
             provider = new ethers.providers.Web3Provider(window.ethereum);
-            await provider.send('eth_requestAccounts', []);
             signer = provider.getSigner();
             const address = await signer.getAddress();
-            
-            // Update wallet address display and other UI elements
+
+            // Update UI with the connected address
             updateUIOnSuccess(address);
 
             // Initialize contract
             contract = new ethers.Contract(contractAddress, abi, signer);
-
-            // Optionally handle tab-button
-            const openInMetaMaskButton = document.querySelector('.tab-button');
-            if (openInMetaMaskButton) {
-                openInMetaMaskButton.style.display = 'none'; // Hide the button
-            }
 
         } catch (error) {
             handleConnectionError(error);
@@ -453,6 +449,19 @@ function saveRectangleToDynamoDB(solfanKey, wallet, bounds, tokenID) {
         alert('MetaMask is not installed. Please install MetaMask and try again.');
     }
 }
+
+function updateUIOnSuccess(address) {
+    document.getElementById('walletAddress').innerText = `Connected: ${address}`;
+    const connectWalletButton = document.getElementById('connectWalletButton');
+    connectWalletButton.innerHTML = '<strong>Connected</strong>';
+    connectWalletButton.style.backgroundColor = '#238636'; // Change button color
+}
+
+function handleConnectionError(error) {
+    console.error('Error connecting wallet:', error);
+    alert('Failed to connect wallet. Please try again.');
+}
+
 
 function updateUIOnSuccess(address) {
     document.getElementById('walletAddress').innerText = `Connected: ${address}`;
