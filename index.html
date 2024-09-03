@@ -9,102 +9,82 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-            filter: invert(100%) hue-rotate(180deg); /* Inverts colors and adjusts hue to correct colors */
-        }
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    filter: invert(100%) hue-rotate(180deg); /* Inverts colors and adjusts hue to correct colors */
+}
 
-        #map {
-            height: 100vh;
-            width: 100vw;
-        }
+#map {
+    height: 100vh;
+    width: 100vw;
+    position: absolute; /* Ensure the map covers the entire viewport */
+    top: 0;
+    left: 0;
+    z-index: 1; /* Map is below other elements */
+}
 
-        #search-container {
-            position: absolute;
-            top: 10px; /* Distance from the top */
-            left: 50%;
-            transform: translateX(-50%); /* Center horizontally */
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            background: #fff; /* Ensure the background is white for visibility */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        #search-box {
-            width: 200px; /* Adjust the width as needed */
-            margin-right: 10px;
-            padding: 5px;
-            background: #fff; /* Ensure the search box background is white for visibility */
-            color: #000; /* Ensure text color is black for visibility */
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        #search-button {
-            cursor: pointer;
-            background: #007bff; /* Button background color */
-            color: #fff; /* Button text color */
-            border: none;
-            padding: 5px 10px; /* Smaller padding */
-            border-radius: 3px;
-            font-size: 14px; /* Smaller text size */
-        }
-
-        #search-button:hover {
-            background: #0056b3; /* Darker shade on hover */
-        }
-
-        .popup-content {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .popup-content input {
-            margin-bottom: 10px;
-            background: #fff; /* Ensure the input background is white for visibility */
-            color: #000; /* Ensure text color is black for visibility */
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        .popup-content button {
-            cursor: pointer;
-            background: #007bff; /* Button background color */
-            color: #fff; /* Button text color */
-            border: none;
-            padding: 5px;
-            border-radius: 3px;
-        }
-
-        .popup-content button:hover {
-            background: #0056b3; /* Darker shade on hover */
-        }
-		
-		.wallet-info {
+#search-container {
+    position: absolute;
+    top: 10px; /* Distance from the top */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    z-index: 1000; /* Ensure it is above the map */
     display: flex;
-    flex-direction: column;
     align-items: center;
+    background: #fff; /* Ensure the background is white for visibility */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow for better visibility */
+    pointer-events: auto; /* Ensure it is clickable */
+}
+
+#search-box {
+    width: 200px; /* Adjust the width as needed */
+    margin-right: 10px;
+    padding: 5px;
+    background: #fff; /* Ensure the search box background is white for visibility */
+    color: #000; /* Ensure text color is black for visibility */
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    pointer-events: auto; /* Ensure it is clickable */
+}
+
+#search-button {
+    cursor: pointer;
+    background: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none;
+    padding: 5px 10px; /* Smaller padding */
+    border-radius: 3px;
+    font-size: 14px; /* Smaller text size */
+    pointer-events: auto; /* Ensure it is clickable */
+}
+
+#search-button:hover {
+    background: #0056b3; /* Darker shade on hover */
 }
 
 #connectWalletButton {
+    position: absolute; /* Position it at a specific place */
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    z-index: 1000; /* Ensure it is above the map */
     display: flex;
     align-items: center;
-    background-color: #ffd662; /* Dark button background */
+    background-color: #ffd662; /* Light button background */
     color: #000000;
     padding: 10px 20px;
-    font-size: 14px; /* Smaller font size */
+    font-size: 14px; /* Consistent font size */
     border: 1px solid #444; /* Subtle border */
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
-    position: relative;
     overflow: hidden;
     min-width: 150px;
+    pointer-events: auto; /* Ensure it is clickable */
 }
 
 #connectWalletButton img {
@@ -115,7 +95,7 @@
 }
 
 #connectWalletButton:hover {
-    background-color: #444; /* Slightly lighter dark */
+    background-color: #e0e0e0; /* Lighten background color on hover */
     transform: scale(1.02);
 }
 
@@ -128,6 +108,7 @@
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
+
 
     </style>
 </head>
@@ -550,4 +531,3 @@ function handleConnectionError(error) {
 	</script>
 </body>
 </html>
-
